@@ -1,0 +1,103 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-android-extensions'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildFeatures{
+        dataBinding = true
+        // for view binding :
+        // viewBinding = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation deps.kotlin.stdlib
+    implementation deps.work.runtime_ktx
+    implementation deps.app_compat
+
+    // Kotlin Extension
+    implementation deps.core_ktx
+    implementation 'com.google.android.play:core-ktx:1.8.1'
+    implementation deps.activity.activity_ktx
+    implementation deps.fragment.runtime_ktx
+
+    // Network
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.adapter
+    implementation deps.okhttp_logging_interceptor
+
+    implementation deps.core_ktx
+
+    implementation deps.coroutines.core
+    implementation deps.coroutines.android
+
+    implementation deps.core_ktx
+
+    // Life cycle
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.java8
+    implementation deps.lifecycle.compiler
+    implementation deps.lifecycle.viewmodel_ktx
+    implementation deps.lifecycle.livedata_ktx
+
+    implementation deps.fragment.runtime_ktx
+
+    // Glide
+    implementation deps.glide.runtime
+    implementation deps.glide.okhttp
+    kapt deps.glide.compiler
+
+    // Ted Permisision
+    implementation deps.ted_permission
+
+
+    // Hilt
+    api "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    // Hilt testing dependencies
+    androidTestApi "com.google.dagger:hilt-android-testing:$hilt_version"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    kaptAndroidTest "androidx.hilt:hilt-compiler:$hilt_version"
+
+    // Hilt ViewModel extension
+    api "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+
+    debugApi 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseApi 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+
+}
